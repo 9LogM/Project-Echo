@@ -1,0 +1,15 @@
+services:
+  echo:
+    build: .
+    container_name: echo-container
+    runtime: nvidia 
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/bash
+    network_mode: "host"
+    environment:
+      - ACCEPT_EULA=Y
+      - PRIVACY_CONSENT=Y
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./source:/app/source:rw
