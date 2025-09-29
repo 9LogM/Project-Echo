@@ -12,5 +12,5 @@ services:
       - PRIVACY_CONSENT=Y
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ./src:/app/src
-      - ./src/logs:/isaac-sim/kit/logs/Kit/Isaac-Sim Streaming/5.0
+      - ./src:/app/src/
+      - ./src/logs:/isaac-sim/kit/logs/Kit/Isaac-Sim Streaming/5.0/
