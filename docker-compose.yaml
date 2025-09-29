@@ -7,10 +7,10 @@ services:
     tty: true
     entrypoint: /bin/bash
     network_mode: "host"
-    ipc: "host"
     environment:
       - ACCEPT_EULA=Y
       - PRIVACY_CONSENT=Y
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ./src:/app/src:rw
+      - ./src:/app/src
+      - ./src/logs:/isaac-sim/kit/logs/Kit/Isaac-Sim Streaming/5.0

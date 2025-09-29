@@ -36,7 +36,7 @@ This project is fully containerized, making setup quick and reproducible.
 
 4. **Inside the container, run the script:**
     ```bash
-    /isaac-sim/python.sh src/hello_world.py
+    /isaac-sim/python.sh src/vis_lidar.py
     ```
 
 5.  **View the Simulation:**
