@@ -11,6 +11,7 @@ services:
     volumes:
       - ./src:/app/src/
       - './src/logs:/isaac-sim/kit/logs/Kit/Isaac-Sim Streaming/5.0/'
+      - /var/run/docker.sock:/var/run/docker.sock
     # command: ["./run_app.sh"]
 
     tty: true
