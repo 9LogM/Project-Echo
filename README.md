@@ -29,17 +29,7 @@ This project is fully containerized, making setup quick and reproducible.
     docker compose up --build
     ```
 
-3. **Open an interactive shell inside the container:**
-    ```bash
-    docker exec -it echo-container bash
-    ```
-
-4. **Inside the container, run the script:**
-    ```bash
-    /isaac-sim/python.sh src/vis_lidar.py
-    ```
-
-5.  **View the Simulation:**
+3.  **View the Simulation:**
     * Launch the **Isaac Sim WebRTC Streaming Client** that you downloaded.
     * Connect to `127.0.0.1`. You should now see the live simulation.
 

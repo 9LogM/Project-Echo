@@ -1,1 +1,4 @@
 src/logs/
+src/ros2_ws/build
+src/ros2_ws/install
+src/ros2_ws/log

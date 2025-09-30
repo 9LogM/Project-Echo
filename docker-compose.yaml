@@ -3,9 +3,6 @@ services:
     build: .
     container_name: echo-container
     runtime: nvidia 
-    stdin_open: true
-    tty: true
-    entrypoint: /bin/bash
     network_mode: "host"
     environment:
       - ACCEPT_EULA=Y
@@ -13,4 +10,9 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - ./src:/app/src/
-      - ./src/logs:/isaac-sim/kit/logs/Kit/Isaac-Sim Streaming/5.0/
+      - './src/logs:/isaac-sim/kit/logs/Kit/Isaac-Sim Streaming/5.0/'
+    # command: ["./run_app.sh"]
+
+    tty: true
+    stdin_open: true
+    entrypoint: /bin/bash
