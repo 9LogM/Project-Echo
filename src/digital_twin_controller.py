@@ -41,12 +41,15 @@ def main():
 
     try:
         world = World()
-        world.scene.add_default_ground_plane()
         stage = omni.usd.get_context().get_stage()
         prim_path = config['prim_path']
         usd_point_cloud = UsdGeom.Points.Define(stage, prim_path)
 
+        color_primvar = usd_point_cloud.CreateDisplayColorPrimvar()
+        point_color = Gf.Vec3f(*config['color'])
+
         world.reset()
+
         print("--- Digital Twin Controller is running. ---")
 
         while simulation_app.is_running():
@@ -61,8 +64,7 @@ def main():
                     xyz_points = points_data[:, :3]
                     usd_point_cloud.GetPointsAttr().Set(Vt.Vec3fArray.FromNumpy(xyz_points))
                     usd_point_cloud.GetWidthsAttr().Set(Vt.FloatArray([config['point_size']]))
-                    color_primvar = usd_point_cloud.CreateDisplayColorPrimvar()
-                    color_primvar.Set([Gf.Vec3f(0.8, 0.1, 0.1)])
+                    color_primvar.Set([point_color])
                 
                 lidar_node.latest_msg = None
     finally:

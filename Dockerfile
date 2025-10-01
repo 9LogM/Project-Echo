@@ -30,4 +30,4 @@ RUN source /opt/ros/humble/setup.bash && \
     colcon build --packages-select pointcloud_transformer
 
 COPY run_app.sh .
-RUN chmod +x run_app.sh
+RUN chmod +x ./run_app.sh
