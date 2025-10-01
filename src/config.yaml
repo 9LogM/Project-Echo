@@ -2,7 +2,7 @@ ros_topic_raw: "/camera/depth/color/points"
 ros_topic_clean: "/pointcloud/isaac_sim"
 
 prim_path: "/World/TransformedPointCloud"
-point_size: 0.5
+point_size: 2
 
 # Define how to map the incoming ROS axes to the Isaac Sim world axes.
 # Options: "ros_x", "-ros_x", "ros_y", "-ros_y", "ros_z", "-ros_z"

@@ -2,37 +2,34 @@
 
 set -e
 
-ROS_BASE_WS_PATH="/app/IsaacSim-ros_workspaces/build_ws/humble/humble_ws"
+# --- Launch the C++ node using the External Environment (Workflow A) ---
+echo "--- Launching ROS 2 pointcloud_transformer node ---"
+(
+  unset LD_LIBRARY_PATH
+  source /opt/ros/humble/setup.bash
+  source /app/src/install/setup.bash
+  ros2 run pointcloud_transformer transformer_node
+) &
+ros_node_pid=$!
 
-if [ ! -f "${ROS_BASE_WS_PATH}/install/setup.bash" ]; then
-    echo "--- Python 3.11 ROS 2 base not found. Building now... ---"
-    echo "--- This will take a long time on the first run. ---"
-    cd /app/IsaacSim-ros_workspaces
-    ./build_ros.sh -d humble -v 22.04
-else
-    echo "--- Found existing Python 3.11 ROS 2 base. Skipping build. ---"
-fi
+# --- Launch Isaac Sim using the Internal Environment (Workflow B) ---
+echo "--- Launching Isaac Sim digital twin ---"
+/isaac-sim/python.sh /app/src/digital_twin_controller.py &
+isaac_pid=$!
 
-echo "--- Sourcing Python 3.11 ROS 2 base environment ---"
-source ${ROS_BASE_WS_PATH}/install/setup.bash
-
-echo "Building ROS 2 workspace in $(pwd)"
-cd /app/src/ros2_ws
-rosdep install --from-paths src --ignore-src -y
-colcon build --symlink-install --event-handlers console_direct+
-source install/setup.bash
+# --- Process Management ---
+echo "Isaac Sim (PID: $isaac_pid) and ROS Node (PID: $ros_node_pid) are running."
+echo "Press Ctrl+C to stop."
 
 cleanup() {
-    echo "--- Shutting down background processes ---"
-    kill $(jobs -p)
+    echo "--- Shutting down processes ---"
+    kill -SIGTERM $ros_node_pid
+    kill -SIGTERM $isaac_pid
+    wait $ros_node_pid
+    wait $isaac_pid
     echo "--- Shutdown complete ---"
 }
+
 trap cleanup SIGINT SIGTERM
-
-echo "Starting transformer_node in the background..."
-ros2 run pointcloud_transformer transformer_node &
-
-echo "Starting digital_twin_controller.py..."
-/isaac-sim/python.sh src/digital_twin_controller.py
-
-echo "--- Startup complete. ---"
+wait -n
+cleanup
