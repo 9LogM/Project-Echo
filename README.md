@@ -1,16 +1,17 @@
 # Project Echo
 
-Welcome to **Project Echo**, an open-source, real-time digital twin in NVIDIA Omniverse. This project aims to create a simulated environment that can be controlled by a webcam and features a PyTorch-powered autonomous agent.
+Welcome to **Project Echo**, an open-source, real-time digital twin in NVIDIA Omniverse. This project aims to create a simulated environment created via LiDAR.
 
 
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
 
-1.  **NVIDIA Driver:** A compatible driver for your GPU.
-2.  **[Docker Engine](https://docs.docker.com/engine/install/)**
-3.  **[NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)**
-4.  **[Isaac Sim WebRTC Streaming Client](https://docs.isaacsim.omniverse.nvidia.com/5.0.0/installation/download.html#isaac-sim-latest-release)**
+1.  Compatible NVIDIA Driver
+2.  [Docker Engine](https://docs.docker.com/engine/install/)
+3.  [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+4.  A ROS 2 Sensor: A LiDAR or other sensor that publishes messages of type `sensor_msgs/msg/PointCloud2`.
+4.  (Optional) [Isaac Sim WebRTC Streaming Client](https://docs.isaacsim.omniverse.nvidia.com/5.0.0/installation/download.html#isaac-sim-latest-release)
 
 
 ## Getting Started
@@ -23,14 +24,18 @@ This project is fully containerized, making setup quick and reproducible.
     cd project-echo
     ```
 
-2.  **Build and run the container:**
+2. **Configure the Node:**  
+    Before launching, you must edit the `src/config.yaml` file to match your sensor's ROS 2 topics.
+
+3.  **Build and run the container:**
 
     ```bash
     docker compose up --build
     ```
 
-3.  **View the Simulation:**
-    * Launch the **Isaac Sim WebRTC Streaming Client** that you downloaded.
+3.  **View the Simulation:**  
+    This project runs Isaac Sim in "headless" mode. To view the output, you can use a WebRTC streaming client.
+    * Download and launch the Isaac Sim WebRTC Streaming Client for your operating system.
     * Connect to `127.0.0.1`. You should now see the live simulation.
 
 
