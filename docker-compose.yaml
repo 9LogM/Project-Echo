@@ -9,9 +9,7 @@ services:
       - PRIVACY_CONSENT=Y
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ./src:/app/src/
       - './src/logs:/isaac-sim/kit/logs/Kit/Isaac-Sim Streaming/5.0/'
-      - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: /bin/bash
     tty: true
     command: -c "./run_app.sh"

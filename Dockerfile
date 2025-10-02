@@ -2,8 +2,6 @@ FROM nvcr.io/nvidia/isaac-sim:5.0.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ROS_DISTRO=humble
-ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib
 
 SHELL ["/bin/bash", "-c"]
 
@@ -17,17 +15,15 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
     ros-humble-ros-base \
     ros-dev-tools \
-    cmake \
     libyaml-cpp-dev \
  && rm -rf /var/lib/apt/lists/*
-    
+
 WORKDIR /app
 
-COPY ./src /app/src
+COPY ./src ./src
 
 RUN source /opt/ros/humble/setup.bash && \
-    cd /app/src && \
-    colcon build --packages-select pointcloud_transformer
+    colcon build --symlink-install
 
 COPY run_app.sh .
 RUN chmod +x ./run_app.sh

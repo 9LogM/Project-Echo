@@ -7,7 +7,6 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(yaml-cpp REQUIRED)
-find_package(spdlog REQUIRED)
 
 # Add executable.
 add_executable(
@@ -25,7 +24,6 @@ ament_target_dependencies(
 # Link any non-ament/system libraries.
 target_link_libraries(transformer_node
     ${YAML_CPP_LIBRARIES}
-    spdlog::spdlog # Added: Explicitly link spdlog
 )
 
 # Install the executable.
